@@ -1,5 +1,5 @@
-#include "hooks.hpp"
 #include "stdafx.hpp"
+#include "hooks.hpp"
 
 static std::unique_ptr<PLH::x86Detour> g_pSysWriteStatusTextHook;
 static uint64_t g_SysWriteStatusTextOrig = NULL;

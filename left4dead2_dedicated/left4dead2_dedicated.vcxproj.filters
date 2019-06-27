@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Sources\Hooks">
+      <UniqueIdentifier>{39f96d18-4b91-4007-af51-ed0f2175ec6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stdafx.hpp">
@@ -40,6 +43,15 @@
     </ClCompile>
     <ClCompile Include="source\stdafx.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hooks\engine.cpp">
+      <Filter>Sources\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hooks\winapi.cpp">
+      <Filter>Sources\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hooks\dedicated.cpp">
+      <Filter>Sources\Hooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

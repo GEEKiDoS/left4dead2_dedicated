@@ -2,8 +2,14 @@
 
 typedef int (*DedicatedMain_t)(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 
+// Hooks
+void HookWinapi();
+void OnDedicatedLoaded(const uintptr_t dwDedicatedBase);
+
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
+	HookWinapi();
+
 	// Must add 'bin' to the path....
 	std::string path = getenv("PATH");
 
@@ -38,6 +44,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		LocalFree(pszError);
 		return 0;
 	}
+
+	OnDedicatedLoaded(reinterpret_cast<uintptr_t>(launcher));
 
 	DedicatedMain_t main = (DedicatedMain_t)GetProcAddress(launcher, "DedicatedMain");
 
