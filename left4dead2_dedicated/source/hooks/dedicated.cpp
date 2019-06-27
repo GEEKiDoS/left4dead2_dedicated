@@ -62,11 +62,25 @@ void __fastcall hkSetStatusLine(void* ecx, void* edx, char* pszStatus)
 void BytePatchDedicated( const uintptr_t dwDedicatedBase ) 
 {
     //
-    // 允许输入中文等其他语言的符号 (BUG BUG !!)
+    // 强制控制台模式
     //
     // nop nop
-    //const std::array<uint8_t, 2> btPatch = { 0x90, 0x90 };
-    //utils::WriteProtectedMemory( btPatch, dwDedicatedBase + 0x5923 );
+    const std::array<uint8_t, 2> fcPatch = { 0x90, 0x90 };
+    utils::WriteProtectedMemory( fcPatch, dwDedicatedBase + 0x3814 );
+
+	//
+	// 免除 -game 参数
+	//
+	// push "left4dead2"
+
+	union
+	{
+		uint32_t addr = reinterpret_cast<uint32_t>("left4dead2");
+		uint8_t bytes[4];
+	} l4d2;
+
+	const std::array<uint8_t, 4> gamePatch = { l4d2.bytes[0], l4d2.bytes[1], l4d2.bytes[2], l4d2.bytes[3] };
+	utils::WriteProtectedMemory(gamePatch, dwDedicatedBase + 0x38AD);
 }
 
 void OnDedicatedLoaded( const uintptr_t dwDedicatedBase )

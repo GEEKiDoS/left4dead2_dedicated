@@ -53,12 +53,12 @@
     <ClCompile Include="source\hooks\dedicated.cpp">
       <Filter>Sources\Hooks</Filter>
     </ClCompile>
+    <ClCompile Include="source\hooks\tier0.cpp">
+      <Filter>Sources\Hooks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\launcher.ico">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="launcher.ico">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

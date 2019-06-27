@@ -1,6 +1,8 @@
 #include "stdafx.hpp"
 #include "hooks.hpp"
 
+#include <istream>
+
 class Color
 {
 public:
@@ -106,6 +108,44 @@ void __cdecl hkCon_ColorPrint( Color& clr, const char* msg )
     return PLH::FnCast( g_ColorPrintOrig, &hkCon_ColorPrint )( clr, msg );
 }
 
+static std::unique_ptr<PLH::x86Detour> g_pCOM_ParseLineHook;
+static uint64_t g_COM_ParseLineOrig = NULL;
+
+char* com_token;
+
+char* hkCOM_ParseLine(char* data)
+{
+	int c;
+	int len;
+
+	len = 0;
+	com_token[0] = 0;
+
+	if (!data)
+		return NULL;
+
+	c = *data;
+
+	// parse a line out of the data
+	do
+	{
+		com_token[len] = c;
+		data++;
+		len++;
+		c = *data;
+	} while ((c != '\n' && c != 0) && (len < 1023));
+
+	if (*(data - 1) == '\r')
+		len--;
+	
+	com_token[len] = 0;
+
+	if (c == 0) // end of file
+		return NULL;
+
+	return data;
+}
+
 void OnEngineLoaded( const uintptr_t dwEngineBase )
 {
     static bool bHasLoaded = false;
@@ -117,10 +157,17 @@ void OnEngineLoaded( const uintptr_t dwEngineBase )
 
     bHasLoaded = true;
 
+	com_token = (char *)dwEngineBase + 0x686458;
+
 	PLH::CapstoneDisassembler dis( PLH::Mode::x86 );
 
     g_pColorPrintHook = SetupDetourHook(
         dwEngineBase + 0xA33F0, &hkCon_ColorPrint, &g_ColorPrintOrig, dis );
-	
+
+	g_pCOM_ParseLineHook = SetupDetourHook(
+		dwEngineBase + 0x156C40, &hkCOM_ParseLine, &g_COM_ParseLineOrig, dis);
+
+
     g_pColorPrintHook->hook();
+	g_pCOM_ParseLineHook->hook();
 }

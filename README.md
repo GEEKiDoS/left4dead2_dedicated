@@ -2,6 +2,7 @@
 ## Fatures
 - Fixes console output and console title codepage errors
 - Console output is colored now
+- Fixes a issue with ```COM_ParseLine``` that casues some weird Unknown Command
 
 ## Planned Fatures
 - Multiple server profiles switches with ```-profile```

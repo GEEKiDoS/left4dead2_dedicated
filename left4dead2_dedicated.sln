@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 16.0.28803.452
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "left4dead2_dedicated", "left4dead2_dedicated\left4dead2_dedicated.vcxproj", "{5ABE729A-BF71-467A-A5DB-B880E61FBF54}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{11B560F0-A7CC-4248-B4B1-7B5DF2AECFA2}"
