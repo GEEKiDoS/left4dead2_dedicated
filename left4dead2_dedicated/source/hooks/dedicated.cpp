@@ -81,6 +81,14 @@ void BytePatchDedicated( const uintptr_t dwDedicatedBase )
 
 	const std::array<uint8_t, 4> gamePatch = { l4d2.bytes[0], l4d2.bytes[1], l4d2.bytes[2], l4d2.bytes[3] };
 	utils::WriteProtectedMemory(gamePatch, dwDedicatedBase + 0x38AD);
+
+	//
+	// 删除地图名之前多余的空格
+	//
+	// %16s -> %s
+
+	const std::array<uint8_t, 2> fmtPatch = { 0x73, 0x00 };
+	utils::WriteProtectedMemory(fmtPatch, dwDedicatedBase + 0xB5EC5);
 }
 
 void OnDedicatedLoaded( const uintptr_t dwDedicatedBase )
