@@ -23,5 +23,6 @@
 #endif
 
 #include "utilities.hpp"
+#include "cmdline.hpp"
 
 using namespace std::literals::string_literals;

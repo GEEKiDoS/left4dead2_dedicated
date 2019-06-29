@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="header\cmdline.hpp" />
     <ClInclude Include="header\hooks.hpp" />
     <ClInclude Include="header\modulelist.hpp" />
     <ClInclude Include="header\stdafx.hpp" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="source\hooks\dedicated.cpp" />
     <ClCompile Include="source\hooks\engine.cpp" />
+    <ClCompile Include="source\hooks\server.cpp" />
     <ClCompile Include="source\hooks\tier0.cpp" />
     <ClCompile Include="source\hooks\winapi.cpp" />
     <ClCompile Include="source\main.cpp" />

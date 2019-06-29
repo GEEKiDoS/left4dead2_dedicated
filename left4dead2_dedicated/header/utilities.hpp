@@ -53,7 +53,7 @@ inline void WriteProtectedMemory( const std::array<uint8_t, iDataSize>& data,
     std::copy( data.begin(), data.end(), pTarget );
 }
 
-static std::filesystem::path GetBaseDir(std::filesystem::path path)
+inline static std::filesystem::path GetBaseDir(std::filesystem::path path)
 {
 	return path.remove_filename().string();
 }

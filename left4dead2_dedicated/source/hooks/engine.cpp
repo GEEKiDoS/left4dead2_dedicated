@@ -146,6 +146,15 @@ char* hkCOM_ParseLine(char* data)
 	return data;
 }
 
+static std::unique_ptr<PLH::x86Detour> g_pSetDataRateHook;
+static uint64_t g_SetDataRateOrig = NULL;
+
+void __fastcall hkSetDataRate(uintptr_t ecx, void* edx, float rate)
+{
+	// È¡Ïû clampping
+	*(float*)(ecx + 0xB0) = rate; // m_Rate = rate;
+}
+
 void OnEngineLoaded( const uintptr_t dwEngineBase )
 {
     static bool bHasLoaded = false;
@@ -167,7 +176,10 @@ void OnEngineLoaded( const uintptr_t dwEngineBase )
 	g_pCOM_ParseLineHook = SetupDetourHook(
 		dwEngineBase + 0x156C40, &hkCOM_ParseLine, &g_COM_ParseLineOrig, dis);
 
+	g_pSetDataRateHook = SetupDetourHook(
+		dwEngineBase + 0x1AE9D0, &hkSetDataRate, &g_SetDataRateOrig, dis);
 
     g_pColorPrintHook->hook();
 	g_pCOM_ParseLineHook->hook();
+	g_pSetDataRateHook->hook();
 }

@@ -36,6 +36,9 @@
     <ClInclude Include="resource\resource.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="header\cmdline.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -54,6 +57,9 @@
       <Filter>Sources\Hooks</Filter>
     </ClCompile>
     <ClCompile Include="source\hooks\tier0.cpp">
+      <Filter>Sources\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hooks\server.cpp">
       <Filter>Sources\Hooks</Filter>
     </ClCompile>
   </ItemGroup>

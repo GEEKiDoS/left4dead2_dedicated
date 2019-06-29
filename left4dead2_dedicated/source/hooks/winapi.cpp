@@ -3,7 +3,8 @@
 #include "hooks.hpp"
 
 extern void OnEngineLoaded(const uintptr_t dwEngineBase);
-void OnTier0Loaded(const uintptr_t dwEngineBase);
+extern void OnTier0Loaded(const uintptr_t dwTier0Base);
+extern void OnServerLoaded(const uintptr_t dwServerBase);
 
 void OnLoadLibrary(HMODULE hLibrary, std::string_view libPathView)
 {
@@ -21,6 +22,10 @@ void OnLoadLibrary(HMODULE hLibrary, std::string_view libPathView)
 	{
 		OnTier0Loaded(dwLibraryBase);
 	}
+	else if (szLibName == "server.dll")
+	{
+		OnServerLoaded(dwLibraryBase);
+	}
 }
 
 static std::unique_ptr<PLH::x86Detour> g_pLoadLibExHook;
@@ -31,7 +36,8 @@ NOINLINE HMODULE WINAPI hkLoadLibraryExA(LPCSTR lpLibFileName, HANDLE hFile,
 {
 	HMODULE hLoadedModule = PLH::FnCast(g_LoadLibExOrig, hkLoadLibraryExA)(
 		lpLibFileName, hFile, dwFlags);
-	OnLoadLibrary(hLoadedModule, lpLibFileName);
+	if(hLoadedModule)
+		OnLoadLibrary(hLoadedModule, lpLibFileName);
 	return hLoadedModule;
 }
 
